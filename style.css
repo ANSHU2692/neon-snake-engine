@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0f172a;
+  --card: #111827;
+  --snake: #22c55e;
+  --food: #ef4444;
+  --text: #e5e7eb;
+  --border: #1f2937;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  color: var(--text);
+  font-family: "Segoe UI", sans-serif;
+}
+
+main {
+  height: 100%;
+}
+
+section {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.infos {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  background: var(--card);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 10px #00000060;
+}
+
+.board {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.block {
+  border: 1px solid #0f172a;
+}
+
+.fill {
+  background: var(--snake);
+  box-shadow:
+    0 0 10px var(--snake),
+    0 0 20px var(--snake);
+  border-radius: 6px;
+}
+
+.food {
+  background: var(--food);
+  box-shadow:
+    0 0 10px var(--food),
+    0 0 20px var(--food);
+  border-radius: 50%;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-game,
+.game-over {
+  background: var(--card);
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 30px #000;
+}
+
+.game-over {
+  display: none;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #22c55e;
+}
