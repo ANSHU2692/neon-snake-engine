@@ -7,8 +7,7 @@
 :root {
   --bg: #0f172a;
   --card: #111827;
-  --snake: #22c55e;
-  --food: #ef4444;
+  --snake-color: #00ff9d;
   --text: #e5e7eb;
   --border: #1f2937;
 }
@@ -32,6 +31,8 @@ section {
   height: 100%;
 }
 
+/* ================= INFO ================= */
+
 .infos {
   display: flex;
   justify-content: space-between;
@@ -45,6 +46,8 @@ section {
   box-shadow: 0 0 10px #00000060;
 }
 
+/* ================= BOARD ================= */
+
 .board {
   flex-grow: 1;
   display: grid;
@@ -52,27 +55,145 @@ section {
   border: 2px solid var(--border);
   border-radius: 12px;
   overflow: hidden;
+  touch-action: none;
+  position: relative;
+  background: #020617;
+  box-shadow: inset 0 0 20px rgba(0, 255, 150, 0.1);
 }
 
 .block {
   border: 1px solid #0f172a;
+  transition: all 0.08s linear;
 }
 
+/* ================= SNAKE ================= */
+
 .fill {
-  background: var(--snake);
+  background: var(--snake-color);
   box-shadow:
-    0 0 10px var(--snake),
-    0 0 20px var(--snake);
+    0 0 10px var(--snake-color),
+    0 0 20px var(--snake-color);
   border-radius: 6px;
 }
 
-.food {
-  background: var(--food);
+/* Snake head */
+.block.head {
+  position: relative;
   box-shadow:
-    0 0 10px var(--food),
-    0 0 20px var(--food);
+    0 0 12px var(--snake-color),
+    0 0 25px var(--snake-color);
+}
+
+/* Eyes */
+.block.head::before,
+.block.head::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: black;
   border-radius: 50%;
 }
+
+/* RIGHT */
+.head.right::before {
+  top: 8px;
+  right: 6px;
+}
+.head.right::after {
+  bottom: 8px;
+  right: 6px;
+}
+
+/* LEFT */
+.head.left::before {
+  top: 8px;
+  left: 6px;
+}
+.head.left::after {
+  bottom: 8px;
+  left: 6px;
+}
+
+/* UP */
+.head.up::before {
+  top: 6px;
+  left: 8px;
+}
+.head.up::after {
+  top: 6px;
+  right: 8px;
+}
+
+/* DOWN */
+.head.down::before {
+  bottom: 6px;
+  left: 8px;
+}
+.head.down::after {
+  bottom: 6px;
+  right: 8px;
+}
+
+/* ================= FOOD ================= */
+
+.food {
+  border-radius: 50%;
+}
+
+/* Normal */
+.food-normal {
+  background: #ff4d4d;
+  box-shadow: 0 0 10px #ff4d4d;
+}
+
+/* Bonus */
+.food-bonus {
+  background: gold;
+  box-shadow:
+    0 0 12px gold,
+    0 0 20px gold;
+}
+
+/* Rare */
+.food-rare {
+  background: purple;
+  box-shadow:
+    0 0 15px violet,
+    0 0 25px violet;
+  animation: pulse 0.5s infinite alternate;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+/* ================= PARTICLES ================= */
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: orange;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: burst 0.5s ease-out forwards;
+}
+
+@keyframes burst {
+  to {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+
+/* ================= MODAL ================= */
 
 .modal {
   position: fixed;
@@ -96,7 +217,10 @@ section {
 
 .game-over {
   display: none;
+  flex-direction: column;
 }
+
+/* ================= BUTTON ================= */
 
 .btn {
   margin-top: 20px;
@@ -113,4 +237,45 @@ section {
 .btn:hover {
   transform: scale(1.1);
   box-shadow: 0 0 15px #22c55e;
+}
+
+/* ================= MOBILE CONTROLS ================= */
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.middle {
+  display: flex;
+  gap: 20px;
+}
+
+.ctrl {
+  width: 60px;
+  height: 60px;
+  font-size: 22px;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ctrl:active {
+  transform: scale(0.9);
+  background: #555;
+}
+
+/* Mobile tweak */
+@media (max-width: 600px) {
+  .ctrl {
+    width: 70px;
+    height: 70px;
+    font-size: 26px;
+  }
 }
